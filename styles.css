@@ -19,6 +19,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -94,6 +99,7 @@ h1, h2, h3, h4 {
 
 .section {
     padding: 8rem 0;
+    overflow: hidden;
 }
 
 .section-header {
@@ -290,6 +296,7 @@ h1, h2, h3, h4 {
     display: flex;
     align-items: center;
     position: relative;
+    overflow: hidden;
     background-image: url('assets/hero_bg.png');
     background-size: cover;
     background-position: center;
@@ -404,7 +411,9 @@ h1, h2, h3, h4 {
     cursor: none;
 }
 
-.feature-card:hover {
+.feature-card:hover,
+.feature-card:active,
+.feature-card.touch-active {
     transform: translateY(-10px);
     background: var(--bg-card-hover);
     border-color: rgba(0, 255, 136, 0.4);
@@ -1695,4 +1704,31 @@ footer {
     background: rgba(255, 165, 0, 0.05) !important;
     border-color: rgba(255, 165, 0, 0.2) !important;
     color: orange !important;
+}
+
+/* Mobile only utility */
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+    .pricing-grid, .grounds-grid, .features-grid, .process-grid {
+        grid-template-columns: 1fr;
+    }
+    .court-selector, .duration-toggle {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .availability-module {
+        padding: 1.5rem 1rem;
+    }
+    .slots-grid {
+        grid-template-columns: 1fr;
+    }
 }

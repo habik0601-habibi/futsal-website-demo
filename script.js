@@ -144,7 +144,8 @@ window.selectDate = function(element, fullDateStr) {
 };
 
 window.slideDates = function(dir) {
-    sliderStartDate.setDate(sliderStartDate.getDate() + (dir * 7));
+    let daysToShow = window.innerWidth <= 768 ? 2 : 7;
+    sliderStartDate.setDate(sliderStartDate.getDate() + (dir * daysToShow));
     renderDateSlider();
 };
 
@@ -152,9 +153,10 @@ window.renderDateSlider = function() {
     const slider = document.getElementById('dateSliderDynamic');
     if (!slider) return;
     
+    let daysToShow = window.innerWidth <= 768 ? 2 : 7;
     let html = '';
     let hasActiveDate = false;
-    for(let i = 0; i < 7; i++) {
+    for(let i = 0; i < daysToShow; i++) {
         let d = new Date(sliderStartDate);
         d.setDate(d.getDate() + i);
         
@@ -177,6 +179,17 @@ window.renderDateSlider = function() {
         document.querySelector('.date-item').click();
     }
 };
+
+window.addEventListener('resize', () => {
+    const slider = document.getElementById('dateSliderDynamic');
+    if (slider) {
+        const currentDays = slider.children.length;
+        const expectedDays = window.innerWidth <= 768 ? 2 : 7;
+        if (currentDays > 0 && currentDays !== expectedDays) {
+            renderDateSlider();
+        }
+    }
+});
 
 window.selectDuration = function(element) {
     document.querySelectorAll('.duration-tab').forEach(tab => tab.classList.remove('active'));
@@ -429,3 +442,22 @@ window.completeBookingFlow = function() {
     document.getElementById('custPhone').value = '';
     document.getElementById('custEmail').value = '';
 };
+
+// Mobile touch state for feature cards
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.innerWidth <= 768) {
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.feature-card').forEach(c => c.classList.remove('touch-active'));
+                card.classList.toggle('touch-active');
+            });
+        });
+        
+        // Remove active state when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.feature-card')) {
+                document.querySelectorAll('.feature-card').forEach(c => c.classList.remove('touch-active'));
+            }
+        });
+    }
+});

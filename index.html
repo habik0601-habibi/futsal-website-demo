@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futsal Connect | Premium Court Bookings</title>
+    <meta name="description" content="Book premium futsal courts instantly. The best turf, the best lighting, ready for your squad.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;1,400&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Futsal<span class="accent">Connect</span></a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#process">How It Works</a></li>
+                <li><a href="#grounds">Courts</a></li>
+                <li><a href="#availability">Book</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+            </ul>
+            <div class="nav-actions" style="display: flex; gap: 15px; align-items: center;">
+                <a href="login.html" class="nav-link-login" style="color: var(--text-primary); text-decoration: none; font-weight: 600; cursor: none; transition: color 0.3s ease;">Login</a>
+                <a href="#availability" class="nav-btn btn-primary">Book Now</a>
+            </div>
+            <!-- Mobile Menu Toggle -->
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge fade-up">
+                <span class="status-dot"></span>
+                <span>Live availability in Islamabad</span>
+            </div>
+            <h1 class="fade-up">Pitch Perfect.<br><span class="accent-glow">Ready When You Are.</span></h1>
+            <p class="fade-up delay-1">Stop calling. Stop waiting. Book premium UEFA-certified futsal pitches in seconds. Your squad's new home ground awaits.</p>
+            <div class="hero-buttons fade-up delay-2">
+                <a href="#availability" class="btn-primary lg">Book Now</a>
+                <a href="#features" class="btn-secondary lg">Tour The Arena</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Engineered For The <span class="accent">Beautiful Game</span></h2>
+                <p>Professional-grade facilities built to elevate your squad's performance.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <div class="icon"><svg class="icon-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 1.1-.9 2-2 2H4"></path><path d="M14 14.66V17c0 1.1.9 2 2 2h4"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg></div>
+                    <h3>Elite 4G Turf</h3>
+                    <p>Play on UEFA-certified synthetic grass designed for pro-level traction and zero-burn safety.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="icon"><svg class="icon-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg></div>
+                    <h3>Floodlight Arena</h3>
+                    <p>Shadowless, high-lumen LED lighting ensuring crystal-clear visibility for high-stakes night matches.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="icon"><svg class="icon-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
+                    <h3>Zero-Friction Booking</h3>
+                    <p>Live slot availability. Pay securely and confirm your pitch in under 60 seconds.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="icon"><svg class="icon-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h18"></path><path d="M12 2v11"></path><path d="M8 17v-4"></path><path d="M16 17v-4"></path><path d="M8 5h8"></path></svg></div>
+                    <h3>Locker Room Luxury</h3>
+                    <p>Hot showers, secure lockers, and a tactical briefing lounge for your pre-match strategy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing section dark-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose Your <span class="accent">Arena Pass</span></h2>
+                <p>Straightforward hourly rates. Split the cost with your team easily.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Basic Plan -->
+                <div class="pricing-card glass">
+                    <h3>Daylight Play</h3>
+                    <div class="price"><span class="currency">PKR </span>5,000<span class="period">/90 min</span></div>
+                    <ul class="features-list">
+                        <li><span>✔</span> Premium 5v5 Pitch</li>
+                        <li><span>✔</span> Basic Amenities</li>
+                        <li><span>✔</span> 9 AM - 5 PM Access</li>
+                        <li><span class="mute">✖</span> Night Floodlights</li>
+                    </ul>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="pricing-card glass popular">
+                    <div class="badge">Most Popular</div>
+                    <h3>Prime Time</h3>
+                    <div class="price"><span class="currency">PKR </span>5,500<span class="period">/90 min</span></div>
+                    <ul class="features-list">
+                        <li><span>✔</span> Premium 5v5 Pitch</li>
+                        <li><span>✔</span> Pro Locker Rooms</li>
+                        <li><span>✔</span> 5 PM - 12 AM Access</li>
+                        <li><span>✔</span> Stadium LED Lights</li>
+                    </ul>
+                </div>
+
+                <!-- Tournament Plan -->
+                <div class="pricing-card glass">
+                    <h3>Tournament</h3>
+                    <div class="price"><span class="currency">PKR </span>30,000<span class="period">/day</span></div>
+                    <ul class="features-list">
+                        <li><span>✔</span> 2 Pitches Included</li>
+                        <li><span>✔</span> Referee Services</li>
+                        <li><span>✔</span> Dedicated Seating</li>
+                        <li><span>✔</span> All-day Access</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process section dark-bg">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-heading">SIMPLE PROCESS</span>
+                <h2>How It <span class="accent">Works</span></h2>
+            </div>
+
+            <div class="process-grid">
+                <!-- Step 1 -->
+                <div class="process-step">
+                    <div class="icon-box glass">
+                        <span class="step-number">1</span>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    </div>
+                    <h3>Choose Court</h3>
+                    <p>Browse top-rated futsal courts near you with live slot availability.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="process-step">
+                    <div class="icon-box glass">
+                        <span class="step-number">2</span>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <h3>Select Time</h3>
+                    <p>Pick your preferred date, time slot, and match duration instantly.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="process-step">
+                    <div class="icon-box glass">
+                        <span class="step-number">3</span>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <h3>Confirm Booking</h3>
+                    <p>Pay securely and receive instant confirmation. Show up and play.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grounds Section -->
+    <section id="grounds" class="grounds section">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-heading">TOP COURTS</span>
+                <h2>Choose Your <span class="accent">Court</span></h2>
+                <p>Two premium futsal courts in Islamabad.</p>
+            </div>
+
+            <div class="grounds-grid">
+                <!-- Ground 1 -->
+                <div class="ground-card glass">
+                    <div class="ground-image">
+                        <img src="assets/court_indoor.png" alt="Chak Shehzad Indoor Court">
+                        <div class="rating-badge">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            4.8
+                        </div>
+                    </div>
+                    <div class="ground-content">
+                        <h3>Total Futsal – Chak Shehzad</h3>
+                        <p class="location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            Chak Shehzad, Islamabad
+                        </p>
+                        <div class="ground-footer">
+                            <div class="ground-price">
+                                <strong>Rs. 5,000</strong> <span class="period">/hour</span>
+                            </div>
+                            <a href="#availability" class="btn-primary">View Slots</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ground 2 -->
+                <div class="ground-card glass">
+                    <div class="ground-image">
+                        <img src="assets/court_outdoor.png" alt="Ayub Park Outdoor Court">
+                        <div class="rating-badge">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            4.7
+                        </div>
+                    </div>
+                    <div class="ground-content">
+                        <h3>Total Futsal – Ayub Park</h3>
+                        <p class="location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            Ayub Park, Islamabad
+                        </p>
+                        <div class="ground-footer">
+                            <div class="ground-price">
+                                <strong>Rs. 4,500</strong> <span class="period">/hour</span>
+                            </div>
+                            <a href="#availability" class="btn-primary">View Slots</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Availability Section -->
+    <section id="availability" class="availability section dark-bg">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-heading">LIVE AVAILABILITY</span>
+                <h2>Check Slots <span class="accent">Instantly</span></h2>
+                <p>Real-time availability for all courts. No calls needed.</p>
+            </div>
+
+            <div class="availability-module glass">
+                
+                <!-- Top Header: Select Court -->
+                <div class="court-selector">
+                    <button class="court-tab active" onclick="selectCourt(this)">Chak Shehzad A</button>
+                    <button class="court-tab" onclick="selectCourt(this)">Chak Shehzad B</button>
+                    <button class="court-tab" onclick="selectCourt(this)">Ayub Park A</button>
+                </div>
+
+                <!-- Date Slider -->
+                <div class="date-slider-container" style="text-align: center; margin-bottom: 20px; transition: all 0.3s ease;">
+                    <h3 id="calendarMonthLabel" style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">October 2026</h3>
+                    <div class="date-slider-wrapper">
+                        <button class="nav-arrow" onclick="slideDates(-1)">&#10094;</button>
+                        <div class="date-slider" id="dateSliderDynamic">
+                            <!-- JS will inject 7 days automatically -->
+                        </div>
+                        <button class="nav-arrow" onclick="slideDates(1)">&#10095;</button>
+                    </div>
+                </div>
+
+                <!-- Duration Toggle -->
+                <div class="duration-toggle">
+                    <div class="duration-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <div class="duration-pill">
+                        <button class="duration-tab active" onclick="selectDuration(this)">1 Hour</button>
+                        <button class="duration-tab" onclick="selectDuration(this)">1.5 Hours</button>
+                    </div>
+                </div>
+
+                <!-- Slots Grid -->
+                <div class="slots-grid" id="slots-container">
+                    <button class="slot-item available"><strong>5:00 PM</strong><span>Available</span></button>
+                    <button class="slot-item available"><strong>6:00 PM</strong><span>Available</span></button>
+                    <button class="slot-item booked"><strong>7:00 PM</strong><span>Booked</span></button>
+                    <button class="slot-item booked"><strong>8:00 PM</strong><span>Booked</span></button>
+                    
+                    <button class="slot-item available"><strong>9:00 PM</strong><span>Available</span></button>
+                    <button class="slot-item available"><strong>10:00 PM</strong><span>Available</span></button>
+                    <button class="slot-item booked"><strong>11:00 PM</strong><span>Booked</span></button>
+                    <button class="slot-item available"><strong>12:00 AM</strong><span>Available</span></button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Earned on the <span class="accent">Turf</span></h2>
+                <p>Don't just take our word for it. Hear from the captains who lead their teams here.</p>
+            </div>
+
+            <div class="slider-container">
+                <div class="testimonial-card glass active">
+                    <p class="quote">"The turf quality here is insane. Best facility I've played at in years. Our weekly leagues have never felt more professional."</p>
+                    <div class="author">
+                        <img src="assets/avatar1.png" alt="Athlete Name">
+                        <div class="info">
+                            <h4>David Martinez</h4>
+                            <span>Amateur League Captain</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card glass">
+                    <p class="quote">"Booking through Futsal Connect is so seamless. No calls, no waiting. Just pick a slot, split with the team, and done!"</p>
+                    <div class="author">
+                        <img src="assets/avatar2.png" alt="Athlete Name">
+                        <div class="info">
+                            <h4>Sarah Jenkins</h4>
+                            <span>Weekend Warrior</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="nav-arrow prev" onclick="moveSlide(-1)">&#10094;</button>
+                    <div class="dots">
+                        <span class="dot active" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                    </div>
+                    <button class="nav-arrow next" onclick="moveSlide(1)">&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta section">
+        <div class="cta-container glass">
+            <h2>Lace Up. The Pitch is Yours.</h2>
+            <p>Join our beta program today to receive priority booking and exclusive discount codes.</p>
+            <form id="signupForm" class="cta-form">
+                <input type="email" id="emailInput" placeholder="Enter your email address" required>
+                <button type="submit" class="btn-primary">Get Started</button>
+            </form>
+            <p id="formMessage" style="display: none; margin-top: 15px; color: var(--accent); font-weight: 500;">Thanks! We will be in touch shortly.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="brand-col">
+                <a href="#" class="logo">Futsal<span class="accent">Connect</span></a>
+                <p>The ultimate destination for premium futsal court bookings. Built for athletes, by athletes.</p>
+            </div>
+            <div class="links-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#process">How It Works</a></li>
+                    <li><a href="#grounds">Courts</a></li>
+                    <li><a href="#availability">Book</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                </ul>
+            </div>
+            <div class="social-col">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#">IG</a>
+                    <a href="#">TW</a>
+                    <a href="#">FB</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Futsal Connect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Customer Booking Modal -->
+    <div class="customer-modal-overlay" id="customerBookingModal">
+        <div class="customer-modal-wrapper">
+            <button class="customer-modal-close" onclick="closeCustomerModal()">×</button>
+            
+            <!-- Step 1: Details -->
+            <div class="customer-modal-step active" id="modalStep1">
+                <div class="customer-modal-header">
+                    <h3>Confirm Booking Details</h3>
+                </div>
+                <div class="booking-summary-box">
+                    <div><span>Court:</span> <span class="highlight" id="summaryCourt">Chak Shehzad A</span></div>
+                    <div><span>Date:</span> <span class="highlight" id="summaryDate">19 Oct, 2026</span></div>
+                    <div><span>Time:</span> <span class="highlight" id="summaryTime">19:00</span></div>
+                </div>
+                <form id="customerDetailsForm">
+                    <div class="customer-input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="custName" required placeholder="John Doe">
+                    </div>
+                    <div class="customer-input-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="custPhone" required placeholder="0300 1234567">
+                    </div>
+                    <div class="customer-input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="custEmail" required placeholder="john@example.com">
+                    </div>
+                    <div class="customer-btn-group">
+                        <button type="button" class="btn-secondary" onclick="closeCustomerModal()">Cancel</button>
+                        <button type="submit" class="btn-primary">Proceed to Payment</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 2: Payment -->
+            <div class="customer-modal-step" id="modalStep2">
+                <div class="customer-modal-header">
+                    <h3>Secure Payment</h3>
+                </div>
+                <div class="booking-summary-box">
+                    <div><span>Total Amount:</span> <span class="highlight" style="font-size: 1.2rem;" id="summaryPrice">Rs. 5,000</span></div>
+                    <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;" id="summaryPriceNote">Standard daylight rate applies</div>
+                </div>
+                <div class="customer-input-group">
+                    <label>Promo Code</label>
+                    <div style="display:flex; gap: 10px;">
+                        <input type="text" id="promoCode" placeholder="Enter code (e.g. PROMO20)" style="flex:1;">
+                        <button type="button" class="btn-secondary" onclick="applyPromo()">Apply</button>
+                    </div>
+                </div>
+                <div class="customer-input-group" style="margin-top: 15px;">
+                    <label>Payment Method</label>
+                    <input type="text" placeholder="Pay at venue" disabled style="opacity: 0.7; cursor: not-allowed; background: rgba(255,255,255,0.05);" value="💳 Pay at venue (Selected)">
+                </div>
+                <div class="customer-btn-group">
+                    <button type="button" class="btn-secondary" onclick="customerModalGoTo(1)">Back</button>
+                    <button type="button" class="btn-primary" onclick="confirmCustomerBooking()" id="confirmBookBtn">Confirm Booking</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Success -->
+            <div class="customer-modal-step" id="modalStep3" style="text-align: center;">
+                <div style="font-size: 4rem; color: var(--accent); margin-bottom: 1rem;">&#10003;</div>
+                <h3 style="margin-bottom: 1rem; font-size: 1.8rem;">Booking Confirmed!</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Your slot has been secured. A confirmation email has been sent to you.</p>
+                <div class="booking-summary-box" style="text-align: left;">
+                    <div><span>Reference:</span> <span class="highlight" id="successRef">#BK-123456</span></div>
+                </div>
+                <button type="button" class="btn-primary" style="width: 100%;" onclick="completeBookingFlow()">Done</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

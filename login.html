@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Futsal Connect</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        input:focus {
+            outline: none;
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 10px rgba(0,255,136,0.2);
+        }
+    </style>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="login-container glass" style="width: 100%; max-width: 450px; padding: 3rem; text-align: center; border-radius: 20px;">
+        <a href="index.html" class="logo" style="margin-bottom: 2rem; display: inline-block;">Futsal<span class="accent">Connect</span></a>
+        <h2 style="margin-bottom: 0.5rem;">Welcome Back</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Enter your details to access the dashboard.</p>
+        
+        <form id="loginForm" style="display: flex; flex-direction: column; gap: 15px;">
+            <input type="text" id="loginName" placeholder="Full Name" required style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: #fff; font-family: var(--font-main); transition: var(--transition); cursor: none;">
+            <input type="email" id="loginEmail" placeholder="Email Address" required style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: #fff; font-family: var(--font-main); transition: var(--transition); cursor: none;">
+            <input type="password" id="loginPassword" placeholder="Password" required style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: #fff; font-family: var(--font-main); transition: var(--transition); cursor: none;">
+            <button type="submit" class="btn-primary" style="margin-top: 10px; width: 100%;">Sign In</button>
+        </form>
+        <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--text-secondary);">Don't have an account? <span style="color: var(--accent); text-decoration: none; cursor: none;">Sign up here</span></p>
+    </div>
+
+    <!-- Script to handle mock auth and cursor -->
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            btn.textContent = 'Authenticating...';
+            btn.style.opacity = '0.7';
+            setTimeout(() => {
+                localStorage.setItem('futsalAuth', 'true');
+                window.location.href = 'dashboard.html';
+            }, 800); // Quick mock transition
+        });
+    </script>
+</body>
+</html>

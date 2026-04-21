@@ -214,8 +214,8 @@ async function fetchSlots() {
     container.innerHTML = '<div style="color:var(--text-secondary); grid-column: 1/-1; text-align:center;">Loading live availability...</div>';
 
     const fetchPromises = Promise.all([
-        sbFetch(`bookings`, { params: `court_name=eq.${activeCourt}&booking_date=eq.${activeDate}&status=eq.confirmed` }),
-        sbFetch(`blocked_periods`, { params: `court=eq.${activeCourt}` })
+        sbFetch(`bookings`, { params: `court_name=ilike.${encodeURIComponent(activeCourt)}&booking_date=eq.${activeDate}&status=eq.confirmed` }),
+        sbFetch(`blocked_periods`, { params: `court=ilike.${encodeURIComponent(activeCourt)}` })
     ]);
     const timeoutPromise = new Promise((_, r) => setTimeout(() => r(new Error('TIMEOUT')), 5000));
     

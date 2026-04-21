@@ -94,6 +94,26 @@
         <button class="db-toggle-btn" id="btnDaily" onclick="switchView('daily')">Daily</button>
       </div>
 
+      <!-- Court Selector -->
+      <div class="court-selector" id="courtSelector">
+        <button class="court-tab active" data-court="all" onclick="selectCourt('all', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          All Courts
+        </button>
+        <button class="court-tab" data-court="Chak Shehzad A" onclick="selectCourt('Chak Shehzad A', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M4.93 4.93a16 16 0 0 0 0 14.14"/><path d="M19.07 4.93a16 16 0 0 1 0 14.14"/></svg>
+          Chak Shehzad A
+        </button>
+        <button class="court-tab" data-court="Chak Shehzad B" onclick="selectCourt('Chak Shehzad B', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M4.93 4.93a16 16 0 0 0 0 14.14"/><path d="M19.07 4.93a16 16 0 0 1 0 14.14"/></svg>
+          Chak Shehzad B
+        </button>
+        <button class="court-tab" data-court="Ayub Park A" onclick="selectCourt('Ayub Park A', this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M4.93 4.93a16 16 0 0 0 0 14.14"/><path d="M19.07 4.93a16 16 0 0 1 0 14.14"/></svg>
+          Ayub Park A
+        </button>
+      </div>
+
       <!-- Monthly Calendar -->
       <div id="viewMonthly" class="db-card">
         <div class="cal-nav">
@@ -287,12 +307,26 @@
       <label>Phone</label><input type="text" id="bkPhone" class="db-input" placeholder="+92...">
       <label>Court</label>
       <select id="bkCourt" class="db-input">
-        <option>Chak Shehzad - Court A</option>
-        <option>Chak Shehzad - Court B</option>
-        <option>Ayub Park - Court A</option>
+        <option>Chak Shehzad A</option>
+        <option>Chak Shehzad B</option>
+        <option>Ayub Park A</option>
       </select>
       <label>Date</label><input type="date" id="bkDate" class="db-input">
-      <label>Start Time</label><input type="time" id="bkTime" class="db-input">
+      <label>Start Time</label>
+      <select id="bkTime" class="db-input">
+        <option value="06:00">6:00 AM</option>
+        <option value="07:30">7:30 AM</option>
+        <option value="09:00">9:00 AM</option>
+        <option value="10:30">10:30 AM</option>
+        <option value="12:00">12:00 PM</option>
+        <option value="13:30">1:30 PM</option>
+        <option value="15:00">3:00 PM</option>
+        <option value="16:30">4:30 PM</option>
+        <option value="18:00">6:00 PM</option>
+        <option value="19:30">7:30 PM</option>
+        <option value="21:00">9:00 PM</option>
+        <option value="22:30">10:30 PM</option>
+      </select>
       <label>Duration</label>
       <select id="bkDuration" class="db-input">
         <option value="90">90 Minutes</option>
@@ -315,9 +349,9 @@
     <div class="db-modal-body">
       <label>Court</label>
       <select id="blkCourt" class="db-input">
-        <option>Chak Shehzad - Court A</option>
-        <option>Chak Shehzad - Court B</option>
-        <option>Ayub Park - Court A</option>
+        <option>Chak Shehzad A</option>
+        <option>Chak Shehzad B</option>
+        <option>Ayub Park A</option>
       </select>
       <label>From Date</label><input type="date" id="blkFrom" class="db-input">
       <label>To Date</label><input type="date" id="blkTo" class="db-input">

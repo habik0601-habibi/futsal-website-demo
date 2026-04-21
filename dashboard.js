@@ -19,6 +19,7 @@ let calDate = new Date(_now.getFullYear(), _now.getMonth(), 1);
 let weekDate = new Date();
 let dayDate  = new Date();
 let currentView = 'monthly';
+let selectedCourt = 'all';
 
 let allBookings = [];
 let allCustomers = [];
@@ -83,6 +84,7 @@ async function loadAll() {
     allRefunds = []; allBlocks = []; allPricingRules = []; allReviews = [];
   } finally {
     showLoading(false);
+    normalizeAllData();
     renderMonthly();
     renderBookingsTable(allBookings);
     renderCourts();
@@ -117,9 +119,55 @@ function showLoading(on) {
   el.style.opacity = on ? '1' : '0';
 }
 
+// ---- COURT SELECTOR ----
+window.selectCourt = (court, btn) => {
+  selectedCourt = court;
+  document.querySelectorAll('.court-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  // Re-render the active calendar view
+  if (currentView === 'monthly') renderMonthly();
+  else if (currentView === 'weekly') renderWeekly();
+  else if (currentView === 'daily') renderDaily();
+};
+
+// Normalize court names to canonical format for case-insensitive matching
+const COURT_MAP = {
+  'chak shehzad a': 'Chak Shehzad A',
+  'chak shehzad - court a': 'Chak Shehzad A',
+  'chak shehzad b': 'Chak Shehzad B',
+  'chak shehzad - court b': 'Chak Shehzad B',
+  'ayub park a': 'Ayub Park A',
+  'ayub park - court a': 'Ayub Park A',
+};
+
+function normalizeCourt(name) {
+  if (!name) return name;
+  return COURT_MAP[name.toLowerCase().trim()] || name;
+}
+
+// Normalize all loaded data so filtering always works
+function normalizeAllData() {
+  allBookings.forEach(b => { if (b.court_name) b.court_name = normalizeCourt(b.court_name); });
+  allBlocks.forEach(bl => {
+    if (bl.court) bl.court = normalizeCourt(bl.court);
+    if (bl.court_name) bl.court_name = normalizeCourt(bl.court_name);
+  });
+}
+
+function getFilteredBookings() {
+  if (selectedCourt === 'all') return allBookings;
+  return allBookings.filter(b => b.court_name === selectedCourt);
+}
+
+function getFilteredBlocks() {
+  if (selectedCourt === 'all') return allBlocks;
+  return allBlocks.filter(bl => bl.court === selectedCourt || bl.court_name === selectedCourt);
+}
+
 // ---- CALENDAR ----
 function renderMonthly() {
-  document.getElementById('calMonthLabel').textContent = `${MONTHS[calDate.getMonth()]} ${calDate.getFullYear()}`;
+  const courtLabel = selectedCourt === 'all' ? '' : ` — ${selectedCourt}`;
+  document.getElementById('calMonthLabel').textContent = `${MONTHS[calDate.getMonth()]} ${calDate.getFullYear()}${courtLabel}`;
   const grid = document.getElementById('calGrid');
   grid.innerHTML = '';
   const first = new Date(calDate.getFullYear(), calDate.getMonth(), 1).getDay() || 7;
@@ -127,9 +175,12 @@ function renderMonthly() {
   const today = new Date();
   const monthStr = `${calDate.getFullYear()}-${String(calDate.getMonth()+1).padStart(2,'0')}`;
 
+  const filteredBookings = getFilteredBookings();
+  const filteredBlocks = getFilteredBlocks();
+
   // Count bookings per day this month
   const bookedMap = {};
-  allBookings.forEach(b => {
+  filteredBookings.forEach(b => {
     if (b.booking_date && b.booking_date.startsWith(monthStr) && b.status !== 'cancelled') {
       const d = parseInt(b.booking_date.split('-')[2]);
       bookedMap[d] = (bookedMap[d] || 0) + 1;
@@ -138,7 +189,7 @@ function renderMonthly() {
 
   // Blocked days
   const blockedSet = new Set();
-  allBlocks.forEach(bl => {
+  filteredBlocks.forEach(bl => {
     const from = new Date(bl.from_date), to = new Date(bl.to_date);
     for (let d = new Date(from); d <= to; d.setDate(d.getDate()+1)) {
       if (d.getFullYear() === calDate.getFullYear() && d.getMonth() === calDate.getMonth()) {
@@ -147,12 +198,15 @@ function renderMonthly() {
     }
   });
 
+  // Thresholds: for a single court, fewer bookings = full
+  const fullThreshold = selectedCourt === 'all' ? 6 : 2;
+
   for (let i = 1; i < first; i++) grid.innerHTML += `<div class="cal-cell empty"></div>`;
 
   for (let d = 1; d <= days; d++) {
     let cls = 'open';
     if (blockedSet.has(d)) cls = 'blocked';
-    else if ((bookedMap[d] || 0) >= 6) cls = 'booked';
+    else if ((bookedMap[d] || 0) >= fullThreshold) cls = 'booked';
     else if ((bookedMap[d] || 0) >= 1) cls = 'partial';
 
     const isToday = (calDate.getFullYear() === today.getFullYear() && calDate.getMonth() === today.getMonth() && d === today.getDate());
@@ -171,16 +225,19 @@ function renderWeekly() {
     const dd = new Date(start); dd.setDate(dd.getDate() + d);
     labels.push(WEEK_DAYS[d] + ' ' + dd.getDate());
   }
-  document.getElementById('weekLabel').textContent = labels[0] + ' – ' + labels[6];
+  const courtLabel = selectedCourt === 'all' ? '' : ` · ${selectedCourt}`;
+  document.getElementById('weekLabel').textContent = labels[0] + ' – ' + labels[6] + courtLabel;
   const grid = document.getElementById('weekGrid');
+  const filteredBookings = getFilteredBookings();
+  const filteredBlocks = getFilteredBlocks();
   grid.innerHTML = '<div class="week-header-cell"></div>' + labels.map(l => `<div class="week-header-cell">${l}</div>`).join('');
   TIME_SLOTS.forEach(t => {
     grid.innerHTML += `<div class="week-time-label">${t}</div>`;
     for (let d = 0; d < 7; d++) {
       const dd = new Date(start); dd.setDate(dd.getDate() + d);
       const dateStr = dd.toISOString().split('T')[0];
-      const match = allBookings.find(b => b.booking_date === dateStr && b.time_slot === t && b.status !== 'cancelled');
-      const isBlocked = allBlocks.some(bl => dateStr >= bl.from_date && dateStr <= bl.to_date);
+      const match = filteredBookings.find(b => b.booking_date === dateStr && b.time_slot === t && b.status !== 'cancelled');
+      const isBlocked = filteredBlocks.some(bl => dateStr >= bl.from_date && dateStr <= bl.to_date);
       const cls = isBlocked ? 'blocked-slot' : (match ? 'booked-slot' : '');
       const txt = isBlocked ? '🔒 Blocked' : (match ? `⚽ ${match.buyer_name}` : '');
       grid.innerHTML += `<div class="week-slot ${cls}">${txt}</div>`;
@@ -192,21 +249,32 @@ window.changeWeek = (dir) => { weekDate.setDate(weekDate.getDate() + dir * 7); r
 
 // ---- DAILY VIEW ----
 function renderDaily() {
-  document.getElementById('dayLabel').textContent = `${WEEK_DAYS[(dayDate.getDay()+6)%7]} ${dayDate.getDate()} ${MONTHS_SHORT[dayDate.getMonth()]} ${dayDate.getFullYear()}`;
+  const courtLabel = selectedCourt === 'all' ? '' : ` · ${selectedCourt}`;
+  document.getElementById('dayLabel').textContent = `${WEEK_DAYS[(dayDate.getDay()+6)%7]} ${dayDate.getDate()} ${MONTHS_SHORT[dayDate.getMonth()]} ${dayDate.getFullYear()}${courtLabel}`;
   const dateStr = dayDate.toISOString().split('T')[0];
   const grid = document.getElementById('dailyGrid');
-  grid.innerHTML = `<div class="daily-slot" style="background:rgba(0,255,136,0.05);border-color:rgba(0,255,136,0.15);font-weight:700;font-size:0.78rem;color:#94a3b8;">
-    <span>TIME</span><span>CHAK SHEHZAD A</span><span>CHAK SHEHZAD B</span><span>AYUB PARK A</span>
+  const filteredBookings = getFilteredBookings();
+  const filteredBlocks = getFilteredBlocks();
+
+  // Determine which courts to show columns for
+  const courtsToShow = selectedCourt === 'all' ? COURTS : [selectedCourt];
+  const colCount = courtsToShow.length;
+  const colTpl = `80px repeat(${colCount}, 1fr)`;
+
+  const headerLabels = courtsToShow.map(cn => `<span>${cn.toUpperCase()}</span>`).join('');
+  grid.innerHTML = `<div class="daily-slot" style="grid-template-columns:${colTpl};background:rgba(0,255,136,0.05);border-color:rgba(0,255,136,0.15);font-weight:700;font-size:0.78rem;color:#94a3b8;">
+    <span>TIME</span>${headerLabels}
   </div>`;
-  const isBlocked = allBlocks.some(bl => dateStr >= bl.from_date && dateStr <= bl.to_date);
+
   TIME_SLOTS.forEach(t => {
-    const courts = COURTS.map(cn => {
+    const courts = courtsToShow.map(cn => {
+      const isBlocked = filteredBlocks.some(bl => dateStr >= bl.from_date && dateStr <= bl.to_date && (bl.court === cn || bl.court_name === cn || selectedCourt === 'all'));
       if (isBlocked) return `<span style="color:#ff5555;">🔒 Blocked</span>`;
-      const bk = allBookings.find(b => b.booking_date === dateStr && b.time_slot === t && b.court_name === cn && b.status !== 'cancelled');
+      const bk = filteredBookings.find(b => b.booking_date === dateStr && b.time_slot === t && b.court_name === cn && b.status !== 'cancelled');
       if (bk) return `<span><strong style="color:var(--accent);">Booked</strong><br><small style="color:#94a3b8;">${bk.buyer_name}</small></span>`;
       return `<span style="color:#94a3b8;">— Open —</span>`;
     });
-    grid.innerHTML += `<div class="daily-slot"><span class="slot-time">${t}</span>${courts.join('')}</div>`;
+    grid.innerHTML += `<div class="daily-slot" style="grid-template-columns:${colTpl};"><span class="slot-time">${t}</span>${courts.join('')}</div>`;
   });
 }
 
@@ -226,22 +294,46 @@ window.switchView = (view) => {
 window.openDayDetail = (day) => {
   const monthStr = `${calDate.getFullYear()}-${String(calDate.getMonth()+1).padStart(2,'0')}`;
   const dateStr  = `${monthStr}-${String(day).padStart(2,'0')}`;
-  document.getElementById('dayDetailTitle').textContent = `Slots — ${day} ${MONTHS_SHORT[calDate.getMonth()]}`;
+  const courtLabel = selectedCourt === 'all' ? '' : ` · ${selectedCourt}`;
+  document.getElementById('dayDetailTitle').textContent = `Slots — ${day} ${MONTHS_SHORT[calDate.getMonth()]}${courtLabel}`;
   const body = document.getElementById('dayDetailBody');
-  const dayBks = allBookings.filter(b => b.booking_date === dateStr);
-  const isBlocked = allBlocks.some(bl => dateStr >= bl.from_date && dateStr <= bl.to_date);
+  const filteredBookings = getFilteredBookings();
+  const filteredBlocks = getFilteredBlocks();
+  const dayBks = filteredBookings.filter(b => b.booking_date === dateStr);
+  const isBlocked = filteredBlocks.some(bl => dateStr >= bl.from_date && dateStr <= bl.to_date);
   body.innerHTML = '';
-  TIME_SLOTS.forEach(t => {
-    const bk = dayBks.find(b => b.time_slot === t && b.status !== 'cancelled');
-    let label;
-    if (isBlocked) label = `<span class="db-badge cancelled">Blocked</span>`;
-    else if (bk) label = `<span class="db-badge confirmed">Booked — ${bk.buyer_name}</span>`;
-    else label = `<span class="db-badge" style="background:rgba(255,255,255,0.06);color:#94a3b8;">Open</span>`;
-    body.innerHTML += `<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
-      <span style="font-weight:700;">${t}</span>${label}
-      ${!bk && !isBlocked ? `<button class="db-btn-sm" onclick="prefillDate('${dateStr}','${t}')">+ Book</button>` : ''}
-    </div>`;
-  });
+
+  // If a single court is selected, show just slots; otherwise group by court
+  if (selectedCourt !== 'all') {
+    TIME_SLOTS.forEach(t => {
+      const bk = dayBks.find(b => b.time_slot === t && b.status !== 'cancelled');
+      let label;
+      if (isBlocked) label = `<span class="db-badge cancelled">Blocked</span>`;
+      else if (bk) label = `<span class="db-badge confirmed">Booked — ${bk.buyer_name}</span>`;
+      else label = `<span class="db-badge" style="background:rgba(255,255,255,0.06);color:#94a3b8;">Open</span>`;
+      body.innerHTML += `<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <span style="font-weight:700;">${t}</span>${label}
+        ${!bk && !isBlocked ? `<button class="db-btn-sm" onclick="prefillDate('${dateStr}','${t}')">+ Book</button>` : ''}
+      </div>`;
+    });
+  } else {
+    // Show all courts grouped
+    COURTS.forEach(cn => {
+      body.innerHTML += `<div style="padding:10px 0 6px;margin-top:8px;font-weight:700;color:var(--accent);font-size:0.9rem;border-bottom:1px solid rgba(0,255,136,0.15);">${cn}</div>`;
+      TIME_SLOTS.forEach(t => {
+        const bk = allBookings.find(b => b.booking_date === dateStr && b.time_slot === t && b.court_name === cn && b.status !== 'cancelled');
+        const courtBlocked = allBlocks.some(bl => dateStr >= bl.from_date && dateStr <= bl.to_date && (bl.court === cn || bl.court_name === cn));
+        let label;
+        if (courtBlocked) label = `<span class="db-badge cancelled">Blocked</span>`;
+        else if (bk) label = `<span class="db-badge confirmed">Booked — ${bk.buyer_name}</span>`;
+        else label = `<span class="db-badge" style="background:rgba(255,255,255,0.06);color:#94a3b8;">Open</span>`;
+        body.innerHTML += `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+          <span style="font-weight:600;font-size:0.88rem;">${t}</span>${label}
+          ${!bk && !courtBlocked ? `<button class="db-btn-sm" onclick="prefillDate('${dateStr}','${t}')">+ Book</button>` : ''}
+        </div>`;
+      });
+    });
+  }
   openModal('dayDetailModal');
 };
 
